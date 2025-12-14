@@ -15,3 +15,6 @@ Optional Extensions (for example):
 + Multiple model aggregation/synthesis to increase confidence or nuance detections
 + Localization persists when the object is partially or temporarily occluded.
 
+## References
+
+- Military Assets Dataset: https://www.kaggle.com/datasets/rawsi18/military-assets-dataset-12-classes-yolo8-format

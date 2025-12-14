@@ -6,8 +6,8 @@ from detector import ObjectDetector
 def run_video_detection(video_path):
     stream = VideoStream(source=video_path)
     detector = ObjectDetector(
-        model_name="yolov8s.pt",  # Pre-trained model, s for speed/accuracy trade-off
-        conf_threshold=0.4
+        model_name="best.pt",  # Pre-trained model, s for speed/accuracy trade-off
+        conf_threshold=0.3
     )
 
     while True:
@@ -69,4 +69,4 @@ def run_webcam():
 
 
 if __name__ == "__main__":
-    run_video_detection("data/video.mp4")
+    run_video_detection("data/video2.mp4")
