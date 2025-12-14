@@ -1,6 +1,7 @@
 import cv2
 from video_stream import VideoStream
 from detector import ObjectDetector
+from taxonomy import MILITARY_TAXONOMY_MAP, THREAT_LEVELS, THREAT_COLORS
 
 # Run object detection on a video file
 def run_video_detection(video_path):
@@ -21,11 +22,18 @@ def run_video_detection(video_path):
             x1, y1, x2, y2 = det["bbox"]
             label = det["label"]
             conf = det["confidence"]
-            text = f"{label}: {conf:.2f}"
+            
+            # Map to taxonomy
+            taxonomy = MILITARY_TAXONOMY_MAP.get(label, "Other")
+            threat = THREAT_LEVELS.get(taxonomy, 0)
+            color = THREAT_COLORS.get(threat, (200, 200, 200))
 
-            cv2.rectangle(frame, (x1, y1), (x2, y2), (0, 255, 0), 2)
+            # Display with taxonomy info
+            text = f"{taxonomy} ({label}): {conf:.2f} [T{threat}]"
+
+            cv2.rectangle(frame, (x1, y1), (x2, y2), color, 2)
             cv2.putText(frame, text, (x1, y1 - 10),
-                        cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
+                        cv2.FONT_HERSHEY_SIMPLEX, 0.5, color, 2)
 
         cv2.imshow("Video Stream", frame)
 
