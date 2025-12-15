@@ -7,7 +7,7 @@ MILITARY_TAXONOMY_MAP = {
     "camouflage_soldier": "Military Personnel",
     "soldier": "Military Personnel",
     "civilian": "Civilian",
-    
+
     # Vehicles
     "military_tank": "Military Vehicle",
     "military_truck": "Military Vehicle",
@@ -15,7 +15,6 @@ MILITARY_TAXONOMY_MAP = {
     "military_aircraft": "Military Vehicle",
     "military_warship": "Military Vehicle",
     "civilian_vehicle": "Civilian Vehicle",
-
 
     # Weapons
     "weapon": "Weapon",

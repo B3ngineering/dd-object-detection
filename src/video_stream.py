@@ -1,5 +1,6 @@
 import cv2
 
+
 class VideoStream:
     def __init__(self, source=0, width=None, height=None):
         """
