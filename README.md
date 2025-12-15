@@ -17,7 +17,7 @@ Optional Extensions (for example):
 
 ## Project Overview
 
-This project implements a real-time object detection system focused on military asset detection in arctic conditions. It combines multiple YOLO models to detect and classify military-relevant objects with localization and tracking in adverse conditions. Due to the nature of the assignment, I wanted to make it specific to Dominion Dynamics' potential use cases.
+This project implements a real-time object detection system focused on military asset detection in arctic conditions. It combines multiple YOLO models to detect and classify military-relevant objects with localization and tracking in adverse conditions. Due to the nature of the assignment, I wanted to make it specific to Dominion Dynamics' potential use cases, primarily by adding augmentation a military dataset to improve performance under arctic conditions.
 
 | Requirement | Status | Implementation |
 |-------------|--------|----------------|
@@ -28,11 +28,13 @@ This project implements a real-time object detection system focused on military 
 | Multi-model aggregation | ✅ | 3-model fusion with priority weighting |
 | Localization persistence through occlusion | ✅ | Object tracker maintains IDs during occlusion |
 
+See a demonstration on both webcam and military footage here: https://www.youtube.com/watch?v=Bq-qvy9Xk5s
+
 ## Setup and Usage
 
 ```bash
 # Clone repository
-git clone <repo-url>
+git clone https://github.com/B3ngineering/dd-object-detection.git
 cd dd-object-detection
 
 # Create virtual environment
@@ -47,7 +49,7 @@ Run with:
 ```bash
 python src/main.py SOURCE --multi-model
 ```
-where src is the path of an mp4 file OR 0 for the user's webcam. The --multi-model flag specifies model fusion.s
+where src is the path of an mp4 file OR 0 for the user's webcam. The --multi-model flag specifies model fusion.
 
 ## Video Stream
 
@@ -59,7 +61,7 @@ The `VideoStream` class (`src/video_stream.py`) handles video input from webcam 
 
 Used YOLOv8s as the base model, which was pre-trained on the COCO dataset. It was selected for it's speed and accuracy in real-time video processing, and was a great place to start.
 
-![alt text](data/example2.png)
+![alt text](data/example1.png)
 
 ### Custom Military Model
 
@@ -84,6 +86,7 @@ It was further augmented by random snow and fog using the `albumentations` libra
 As for the training of the model, the most-recent iteration of model training can be found in `model/train.py`. Image size and epochs had to be constrained for my laptop, which will be detailed further in the Future Development section. However, this model remained fast and lightweight as it used the YOLOv8s architecture, and was effective in classifying military assets.
 
 ![alt text](data/example2.png)
+![alt text](data/example4.png)
 
 ### Third-Party Threat Detection Model
 
