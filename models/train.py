@@ -10,14 +10,14 @@ model = YOLO('yolov8s.pt')
 
 # Very limited training configuration for rapid prototyping
 model.train(
-    data='model/arctic_military.yaml',
-    epochs=10,
+    data='models/arctic_military.yaml',
+    epochs=25,
     imgsz=224,
-    batch=16,
+    batch=32,
     fraction=1.0,
     amp=True,
     freeze=5,
     project='arctic_military_yolo_prototype',
-    name='exp42',
+    name='exp7',
     augmentations=arctic_augmentations
 )

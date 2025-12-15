@@ -49,7 +49,7 @@ def run_detection(source, multi_model=True):
     if multi_model:
         detector = MultiModelDetector(
             model_configs=[
-                {"path": "models/arctic_military.pt", "weight": 1, "priority": 2},  # Custom arctic model
+                {"path": "models/best_arctic_military.pt", "weight": 1, "priority": 2},  # Custom arctic model
                 {"path": "models/threat_detection.pt", "weight": 0.6, "priority": 1},  # Threat model
                 {"path": "models/yolov8s.pt", "weight": 0.4, "priority": 0},  # CoCo model
             ],
@@ -58,7 +58,7 @@ def run_detection(source, multi_model=True):
         )
     else:
         detector = ObjectDetector(
-            model_name="arctic_military.pt", conf_threshold=0.4
+            model_name="models/yolov8s.pt", conf_threshold=0.4
         )
     tracker = ObjectTracker(max_disappeared=30, max_distance=100)
     window_name = "Detection Stream"
