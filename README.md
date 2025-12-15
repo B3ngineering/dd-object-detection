@@ -59,6 +59,8 @@ The `VideoStream` class (`src/video_stream.py`) handles video input from webcam 
 
 Used YOLOv8s as the base model, which was pre-trained on the COCO dataset. It was selected for it's speed and accuracy in real-time video processing, and was a great place to start.
 
+![alt text](data/example2.png)
+
 ### Custom Military Model
 
 A custom model was trained on the Military Assets Dataset (see References) with 12 classes:
@@ -80,6 +82,8 @@ A custom model was trained on the Military Assets Dataset (see References) with 
 It was further augmented by random snow and fog using the `albumentations` library to simulate arctic conditions.
 
 As for the training of the model, the most-recent iteration of model training can be found in `model/train.py`. Image size and epochs had to be constrained for my laptop, which will be detailed further in the Future Development section. However, this model remained fast and lightweight as it used the YOLOv8s architecture, and was effective in classifying military assets.
+
+![alt text](data/example2.png)
 
 ### Third-Party Threat Detection Model
 
@@ -112,6 +116,9 @@ The `MultiModelDetector` class in `src/detector.py` aggregates the results from 
 
 The `ObjectTracker` class in `src/detector.py` maintains the localization of an object across frames, keeping track of it even when moving quickly or temporarily blocked. It works by calculating the centroid of each detection and matching to existing objects based on the minimum distance. The object ID is maintained even when temproarily undetected for a user-specified number of frames. When an object is "occluded", the bounding box is dimmed until the object is picked up again or enough frames pass.
 
+![alt text](data/example3.png)
+With model fusion and localization persistence combined, scenes with many assets can get cluttered easily. One of the best next steps given more time would be to systematically improve the performance of each model and determine the best weights and priorities.
+
 ## Major Decisions and Trade-Offs
 
 ### Languages and Tools
@@ -130,9 +137,11 @@ Used YOLOv8s (small) instead of nano or medium versions. It balances accuracy an
 
 The addition of snow/fog augmentations increases training time but allows the model to generalize better to the specific weather conditions.
 
+### Localization Through Occlusion
+Centroid-based localication vs Deep SORT - Attempted a Deep SORT implementation using the `deep-sort-realtime` library, but it was ultimately too slow on my device. Instead, I opted for a more customized object tracker that used centroid distances and frame tracking to pick up similar objects that are close to the last seen version.
+
 ## Future Development
 
-- Potential integration of Deep SORT for tracking
 - Alert system - how are the results of this video feed used? If for monitoring, alert users and track threats in an area.
 - Thermal and IR imagery support would be valuable for military applications
 - Export to ONNX for edge deployment

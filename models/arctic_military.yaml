@@ -1,0 +1,17 @@
+train: ../data/archive/military_object_dataset/train
+val: ../data/archive/military_object_dataset/val
+test: ../data/archive/military_object_dataset/test
+
+names:
+  0: camouflage_soldier
+  1: weapon
+  2: military_tank
+  3: military_truck
+  4: military_vehicle
+  5: civilian
+  6: soldier
+  7: civilian_vehicle
+  8: military_artillery
+  9: trench
+  10: military_aircraft
+  11: military_warship

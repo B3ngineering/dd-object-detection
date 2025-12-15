@@ -1,9 +1,12 @@
 .venv
 __pycache__/
-*.pt
+# *.pt
 *.mp4
 *.jpg
-*.png
+# *.png
 *.jpeg
 *.log
-data
+data/archive/
+*.zip
+arctic_military_yolo_prototype/
+*.txt
