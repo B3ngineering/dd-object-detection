@@ -1,5 +1,4 @@
 from ultralytics import YOLO
-
 import albumentations as A
 
 arctic_augmentations = A.Compose([
@@ -18,7 +17,7 @@ model.train(
     fraction=1.0,
     amp=True,
     freeze=5,
-    project='/content/drive/MyDrive/arctic_military_yolo_prototype',
+    project='arctic_military_yolo_prototype',
     name='exp42',
     augmentations=arctic_augmentations
 )
