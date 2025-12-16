@@ -1,9 +1,18 @@
 import argparse
 import cv2
 import os
+import logging
 from video_stream import VideoStream
 from detector import ObjectDetector, MultiModelDetector, ObjectTracker
 from taxonomy import get_taxonomy, THREAT_LEVELS, THREAT_COLORS
+from config import get_config, get_model_configs
+
+# Configure logging
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(levelname)s - %(message)s'
+)
+logger = logging.getLogger(__name__)
 
 
 def file_or_index(value):
@@ -45,22 +54,30 @@ def draw_detection(frame, obj):
 
 
 def run_detection(source, multi_model=True):
+    logger.info(f"Starting detection on source: {source}")
+
+    config = get_config()
     stream = VideoStream(source=source)
     if multi_model:
         detector = MultiModelDetector(
-            model_configs=[
-                {"path": "models/best_arctic_military.pt", "weight": 1, "priority": 2},  # Custom arctic model
-                {"path": "models/threat_detection.pt", "weight": 0.6, "priority": 1},  # Threat model
-                {"path": "models/yolov8s.pt", "weight": 0.4, "priority": 0},  # CoCo model
-            ],
-            conf_threshold=0.4,
-            iou_threshold=0.5
+            model_configs=get_model_configs(config),
+            conf_threshold=config["detection"]["conf_threshold"],
+            iou_threshold=config["detection"]["iou_threshold"],
         )
+        logger.info("Using multi-model detection.")
     else:
         detector = ObjectDetector(
-            model_name="models/yolov8s.pt", conf_threshold=0.4
+            model_name=list(config["models"].values())[0]["path"],
+            conf_threshold=config["detection"]["conf_threshold"],
+            iou_threshold=config["detection"]["iou_threshold"],
         )
-    tracker = ObjectTracker(max_disappeared=30, max_distance=100)
+        logger.info("Using single-model detection.")
+
+    tracker = ObjectTracker(
+        max_disappeared=config["tracking"]["max_disappeared"],
+        max_distance=config["tracking"]["max_distance"]
+    )
+
     window_name = "Detection Stream"
     while True:
         frame = stream.read()

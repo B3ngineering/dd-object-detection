@@ -1,0 +1,22 @@
+# Models for multi-model fusion detection
+models:
+  arctic_military:
+    path: "models/best_arctic_military.pt"
+    weight: 1.0    # Confidence influence (0-1)
+    priority: 2    # Label priority (higher wins)
+  threat_detection:
+    path: "models/threat_detection.pt"
+    weight: 0.6
+    priority: 1
+  coco:
+    path: "models/yolov8s.pt"
+    weight: 0.4
+    priority: 0
+
+detection:
+  conf_threshold: 0.4   # Min confidence to display (0-1)
+  iou_threshold: 0.5    # Overlap to merge boxes (0-1)
+
+tracking:
+  max_disappeared: 30   # Frames to persist during occlusion
+  max_distance: 100     # Max pixels to match same object

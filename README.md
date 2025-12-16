@@ -32,6 +32,8 @@ See a demonstration on both webcam and military footage here: https://www.youtub
 
 ## Setup and Usage
 
+Parameters for detection including model specifications, weight, and priority, as well as parameters for tracking and confidence thresholds can be set in `src/config.yaml`.
+
 ```bash
 # Clone repository
 git clone https://github.com/B3ngineering/dd-object-detection.git
@@ -121,6 +123,10 @@ The `ObjectTracker` class in `src/detector.py` maintains the localization of an 
 
 ![alt text](data/example3.png)
 With model fusion and localization persistence combined, scenes with many assets can get cluttered easily. One of the best next steps given more time would be to systematically improve the performance of each model and determine the best weights and priorities.
+
+## System Diagram
+
+![alt text](diagram.png)
 
 ## Major Decisions and Trade-Offs
 
