@@ -69,7 +69,6 @@ def run_detection(source, multi_model=True):
         detector = ObjectDetector(
             model_name=list(config["models"].values())[0]["path"],
             conf_threshold=config["detection"]["conf_threshold"],
-            iou_threshold=config["detection"]["iou_threshold"],
         )
         logger.info("Using single-model detection.")
 
@@ -97,9 +96,6 @@ def run_detection(source, multi_model=True):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Unified Object Detection: Video file or webcam")
     parser.add_argument("source", type=file_or_index, help="Video file path or webcam index")
-    parser.add_argument("--multi-model", action="store_true", help="Force multi-model detection")
+    parser.add_argument("--multi-model", action="store_true", help="Use multi-model fusion detection")
     args = parser.parse_args()
-    # Auto-select multi-model for files, single-model for webcam unless overridden
-    is_webcam = isinstance(args.source, int)
-    multi_model = args.multi_model or not is_webcam
-    run_detection(args.source, multi_model=multi_model)
+    run_detection(args.source, multi_model=args.multi_model)

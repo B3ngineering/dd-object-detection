@@ -126,7 +126,7 @@ With model fusion and localization persistence combined, scenes with many assets
 
 ## System Diagram
 
-![alt text](diagram.png)
+![alt text](data/diagram.png)
 
 ## Major Decisions and Trade-Offs
 
